@@ -1,0 +1,5 @@
+[build]
+  functions = "netlify/functions"  # Directory for serverless functions
+
+[functions]
+  directory = "netlify/functions"  # Ensure this matches your functions path

@@ -32,7 +32,7 @@ export async function handler(event) {
   const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
   try {
-    const { objects } = JSON.parse(event.body);
+    const { objects, language } = JSON.parse(event.body);
 
     if (!Array.isArray(objects) || objects.length === 0) {
       return {
@@ -46,7 +46,19 @@ export async function handler(event) {
       };
     }
 
-    const prompt = `Write a complete story including the objects ${objects.join(', ')}`;
+    if (!language) {
+      return {
+        statusCode: 400,
+        headers: {
+          'Access-Control-Allow-Origin': 'https://detectale-by-shalini.netlify.app',
+          'Access-Control-Allow-Methods': 'OPTIONS, POST, GET',
+          'Access-Control-Allow-Headers': 'Content-Type',
+        },
+        body: JSON.stringify({ error: 'Language parameter is required' }),
+      };
+    }
+
+    const prompt = `Write a complete story in ${language} including the objects ${objects.join(', ')}`;
     const result = await model.generateContent(prompt);
     const text = result.response.text();
 

@@ -1,10 +1,10 @@
-import { GoogleGenerativeAI } from '@google/generative-ai'; // Use ES module import
+import { GoogleGenerativeAI } from '@google/generative-ai';  
 
 export async function handler(event) {
   // Handle OPTIONS preflight requests
   if (event.httpMethod === 'OPTIONS') {
     return {
-      statusCode: 204, // No Content
+      statusCode: 204, 
       headers: {
         'Access-Control-Allow-Origin': 'https://detectale-by-shalini.netlify.app',
         'Access-Control-Allow-Methods': 'OPTIONS, POST, GET',
